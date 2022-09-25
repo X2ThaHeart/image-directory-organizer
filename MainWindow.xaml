@@ -1,0 +1,17 @@
+﻿<Window x:Class="photo_directory_organizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:photo_directory_organizer"
+        ResizeMode="NoResize"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid x:Name="mainGrid_grid">
+            <Label x:Name="test_label" Content="Choose your root folder:" HorizontalAlignment="Left" Margin="57,42,0,0" VerticalAlignment="Top" Width="144"/>
+            <Button x:Name="rootfolder_button" Content="Root Folder" HorizontalAlignment="Left" Margin="206,45,0,0" VerticalAlignment="Top" Width="84" Click="rootfolder_button_Click"/>
+        </Grid>
+
+    </Grid>
+</Window>
