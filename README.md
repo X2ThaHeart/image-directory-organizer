@@ -7,9 +7,9 @@ Version 0.0.1 - Working
 Images that have duplicate folder size existing don't get copied into folders
 
 # IMPROVEMENTS
-Graphical interface, and better resizing (smaller)
-Results for how many files found.
-Results for how many folders created.
-Result to say complete.
+Graphical interface, and better resizing (smaller)<br/>
+Results for how many files found.<br/>
+Results for how many folders created.<br/>
+Result to say complete.<br/>
 
 
