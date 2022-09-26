@@ -12,6 +12,7 @@ Results for how many files found.<br/>
 Results for how many folders created.<br/>
 Result to say complete.<br/>
 Automatically compare file hash identification against others to prevent duplicates.<br/>
+Folder created called !duplicates, where the ones that match above are put.<br/>
 
 
 
