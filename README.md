@@ -11,5 +11,7 @@ Graphical interface, and better resizing (smaller)<br/>
 Results for how many files found.<br/>
 Results for how many folders created.<br/>
 Result to say complete.<br/>
+Automatically compare file hash identification against others to prevent duplicates.<br/>
+
 
 
