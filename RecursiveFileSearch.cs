@@ -95,11 +95,18 @@ namespace photo_directory_organizer
                         // To move a file or folder to a new location:
                         System.IO.File.Move(fi.FullName, destination);
                     }
+                    //if dir exists
+                    else if (Directory.Exists(folder.ToString()))
+                    {
+                    //move into existing folder
+                    System.IO.File.Move(fi.FullName, Path.Combine(folder.ToString(), Path.GetFileName(fi.FullName)));
+
+                    }
 
 
 
 
-                }
+            }
 
                 // Now find all the subdirectories under this directory.
                 //subDirs = root.GetDirectories();
