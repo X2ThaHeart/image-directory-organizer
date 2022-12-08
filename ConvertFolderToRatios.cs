@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace photo_directory_organizer
 {
@@ -27,7 +28,7 @@ namespace photo_directory_organizer
 
             for (int i = 0; i <= directories.Length; i++)
             {
-                checkEachDirNameAndConvertToRatio(directories[i], filename);
+                checkEachDirNameAndConvertToRatio(directories[i], filename, dir);
 
             }
 
@@ -42,7 +43,7 @@ namespace photo_directory_organizer
 
         }
 
-        static void checkEachDirNameAndConvertToRatio(string directories, string filename)
+        static void checkEachDirNameAndConvertToRatio(string directories, string filename, DirectoryInfo dir )
         {
             //System.IO.FileInfo[] files = null;
             //System.IO.DirectoryInfo[] subDirs = null;
@@ -65,24 +66,28 @@ namespace photo_directory_organizer
             {
                 Console.WriteLine(e.Message);
             }
-            var length = "";
+            int length = 0;
             string[] PreWidth = null;
-            var width = "";
+            int width = 0;
             //FileInfo folder = new FileInfo(Path.Combine(root.ToString(), newfolder.ToString()));
             if (Directory.Exists(directories.ToString()))
             {
                 PreWidth = directories.Split('X');
-                length = PreWidth[1];
-                length = length.Trim();
-
+                var length2 = PreWidth[1];
+                
+                Int32.TryParse(length2.Trim(), out length);
                 var width2 = PreWidth[0];
                 var width3 = width2.Split("\\");
-                width = width3[1];
-                //width = width.Last();
+                var width4 = width3.Last();
+                Int32.TryParse(width4, out width);
+             
             }
+            double ratio = 0;
+            var ratioNew = ratio.ToString("0.0");
+            ratio = (double)Decimal.Divide(width, length);
 
-            Console.WriteLine(length);
-            Console.WriteLine(width);
+            var ratioFinal = String.Format("{0:0.0}", ratio);
+
 
             //    foreach (FileInfo dir in directories)
             //{
@@ -111,21 +116,23 @@ namespace photo_directory_organizer
             //    //check directory for current folder size if so place in if not add folder and add file   dir
 
             //    FileInfo folder = new FileInfo(Path.Combine(root.ToString(), newfolder.ToString()));
-            //    if (!Directory.Exists(folder.ToString()))
-            //    {
-            //        Directory.CreateDirectory(folder.ToString());
-            //        string destination = Path.Combine(folder.ToString(), Path.GetFileName(fi.FullName));
+            string destination = string.Empty; 
+            if (!Directory.Exists(dir.ToString())) 
+                {
+                    Directory.CreateDirectory(ratioFinal.ToString());
+                    destination = Path.Combine(dir.ToString(), Path.GetFileName(ratioFinal));
 
-            //        // To move a file or folder to a new location:
-            //        System.IO.File.Move(fi.FullName, destination);
-            //    }
-            //    //if dir exists
-            //    else if (Directory.Exists(folder.ToString()))
-            //    {
-            //        //move into existing folder
-            //        System.IO.File.Move(fi.FullName, Path.Combine(folder.ToString(), Path.GetFileName(fi.FullName)));
+                    // To move a file or folder to a new location:
+                    System.IO.File.Move(ratioFinal, destination);
+               }
+                //if dir exists
+                else if (Directory.Exists(dir.ToString()))
+                {
+                   //move into existing folder
+                   System.IO.File.Move(Path.Combine(dir.ToString(), Path.GetFileName(ratioFinal)), destination);
 
-            //    }
+
+            }
 
 
 

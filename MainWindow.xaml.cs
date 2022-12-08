@@ -62,6 +62,8 @@ namespace photo_directory_organizer
             return recursiveFileSearch;
         }
 
+
+        //first choose source button for where folders are stored
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -70,7 +72,7 @@ namespace photo_directory_organizer
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                MessageBox.Show("You selected: " + dialog.FileName);
+                MessageBox.Show("You selected as your input directory: " + dialog.FileName);
             }
 
             filename = dialog.FileName;
@@ -95,9 +97,26 @@ namespace photo_directory_organizer
 
         }
 
+
+        //used to store the finished moved folders, (has to be fifferent from source)
         private void convertFoldersToRatioFolders_Click(object sender, RoutedEventArgs e)
         {
-            foldersToRatioSizes(Dir);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = path;
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                MessageBox.Show("You selected as your output directory: " + dialog.FileName);
+            }
+
+            filename = dialog.FileName;
+
+            DirectoryInfo dir = new DirectoryInfo(filename);
+
+            if (Dir.Exists && Dir != dir)
+
+                foldersToRatioSizes(dir);
         }
     }
 }
