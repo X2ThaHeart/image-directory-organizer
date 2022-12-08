@@ -12,7 +12,7 @@ using File = System.IO.File;
 
 namespace photo_directory_organizer
 {
-   public class RecursiveFileSearch
+   public class ConvertFilesToImageFolders
 {
     static System.Collections.Specialized.StringCollection log = new System.Collections.Specialized.StringCollection();
 

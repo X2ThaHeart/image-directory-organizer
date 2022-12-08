@@ -24,6 +24,11 @@ namespace photo_directory_organizer
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        ConvertFolderToRatios convertFolderToRatios = new ConvertFolderToRatios();
+        public string filename = null;
+        public DirectoryInfo Dir { get; private set; }
+
         public MainWindow()
         {
             //can work without for some reason other wise an error
@@ -46,15 +51,53 @@ namespace photo_directory_organizer
             DirectoryInfo di = new DirectoryInfo(filename);
 
             if (di.Exists)
-            fileSearch(di);
+                fileSizeFoldersAndMove(di);
 
         }
 
-        public RecursiveFileSearch fileSearch(DirectoryInfo dir)
+        public ConvertFilesToImageFolders fileSizeFoldersAndMove(DirectoryInfo dir)
         {
-            RecursiveFileSearch recursiveFileSearch = new RecursiveFileSearch();
+            ConvertFilesToImageFolders recursiveFileSearch = new ConvertFilesToImageFolders();
             recursiveFileSearch.function(dir);
             return recursiveFileSearch;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = path;
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                MessageBox.Show("You selected: " + dialog.FileName);
+            }
+
+            filename = dialog.FileName;
+
+            Dir = new DirectoryInfo(filename);
+
+            if (Dir.Exists)
+                convertFolderToRatios.DirInputFolderForRatios = filename;
+                
+
+        }
+
+        public ConvertFolderToRatios foldersToRatioSizes(DirectoryInfo dir)
+        {
+            ConvertFolderToRatios recursiveFileSearch = new ConvertFolderToRatios();
+
+            recursiveFileSearch.function(dir, filename);
+
+
+            return recursiveFileSearch;
+
+
+        }
+
+        private void convertFoldersToRatioFolders_Click(object sender, RoutedEventArgs e)
+        {
+            foldersToRatioSizes(Dir);
         }
     }
 }
