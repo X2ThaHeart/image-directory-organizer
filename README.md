@@ -4,7 +4,7 @@ Organize the photos or images in a directory into each of their own named folder
 Version 0.0.1 - Working
 
 # ISSUES
-Images that have duplicate folder size existing don't get moved  into folders
+See issues tab
 
 # IMPROVEMENTS
 Graphical interface, and better resizing (smaller)<br/>
