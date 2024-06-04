@@ -28,14 +28,18 @@ namespace photo_directory_organizer
         ConvertFolderToRatios convertFolderToRatios = new ConvertFolderToRatios();
         public string filename = null;
         public DirectoryInfo Dir { get; private set; }
+        public string rootFolderPath = null;
+        public string aspectRatioFolderPath = null;
+
+
 
         public MainWindow()
         {
             //can work without for some reason other wise an error
-            //InitializeComponent();
+            InitializeComponent();
         }
 
-        private void rootfolder_button_Click(object sender, RoutedEventArgs e)
+        private void metasize_folders_button_Click(object sender, RoutedEventArgs e)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
@@ -52,6 +56,8 @@ namespace photo_directory_organizer
 
             if (di.Exists)
                 fileSizeFoldersAndMove(di);
+            MessageBox.Show("Folder Sizes Completed");
+            return;
 
         }
 
@@ -64,59 +70,57 @@ namespace photo_directory_organizer
 
 
         //first choose source button for where folders are stored
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SelectRootFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = path;
-            dialog.IsFolderPicker = true;
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                MessageBox.Show("You selected as your input directory: " + dialog.FileName);
+                rootFolderPath = dialog.FileName;
+                MessageBox.Show("Selected Root Folder: " + rootFolderPath);
             }
-
-            filename = dialog.FileName;
-
-            Dir = new DirectoryInfo(filename);
-
-            if (Dir.Exists)
-                convertFolderToRatios.DirInputFolderForRatios = filename;
-                
-
-        }
-
-        public ConvertFolderToRatios foldersToRatioSizes(DirectoryInfo dir)
-        {
-            ConvertFolderToRatios recursiveFileSearch = new ConvertFolderToRatios();
-
-            recursiveFileSearch.function(dir, filename);
-
-
-            return recursiveFileSearch;
-
-
         }
 
 
-        //used to store the finished moved folders, (has to be fifferent from source)
-        private void convertFoldersToRatioFolders_Click(object sender, RoutedEventArgs e)
+        private void SelectAspectRatioFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = path;
-            dialog.IsFolderPicker = true;
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                MessageBox.Show("You selected as your output directory: " + dialog.FileName);
+                aspectRatioFolderPath = dialog.FileName;
+                MessageBox.Show("Selected Aspect Ratio Folder: " + aspectRatioFolderPath);
+            }
+        }
+
+
+
+
+        private void CreateAspectRatiosButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(rootFolderPath) || string.IsNullOrEmpty(aspectRatioFolderPath))
+            {
+                MessageBox.Show("Please select both root and aspect ratio folders.");
+                return;
             }
 
-            filename = dialog.FileName;
-
-            DirectoryInfo dir = new DirectoryInfo(filename);
-
-            if (Dir.Exists && Dir != dir)
-
-                foldersToRatioSizes(dir);
+            DirectoryInfo rootDir = new DirectoryInfo(rootFolderPath);
+            if (rootDir.Exists)
+            {
+                ConvertFilesToAspectRatioFolders fileProcessor = new ConvertFilesToAspectRatioFolders();
+                fileProcessor.ProcessFiles(rootDir, aspectRatioFolderPath);
+                MessageBox.Show("Aspect Ratio conversion complete");
+                return;
+            }
         }
     }
+
+
+   
 }

@@ -12,10 +12,12 @@ namespace photo_directory_organizer
 {
     public class ConvertFolderToRatios
     {
-        string dirInputFolderForRatios = "";
+        //string dirInputFolderForRatios = "";
 
-        public string DirInputFolderForRatios
-        { get { return dirInputFolderForRatios; }  set { dirInputFolderForRatios = value; } }
+        //public string DirInputFolderForRatios
+        //{ get { return dirInputFolderForRatios; }  set { dirInputFolderForRatios = value; } }
+
+        public static object dirInputFolderForRatios { get { return dirInputFolderForRatios; } set { dirInputFolderForRatios = value; } }
 
         static System.Collections.Specialized.StringCollection log = new System.Collections.Specialized.StringCollection();
 
@@ -28,7 +30,7 @@ namespace photo_directory_organizer
 
             for (int i = 0; i <= directories.Length; i++)
             {
-                checkEachDirNameAndConvertToRatio(directories[i], filename, dir);
+                checkEachDirNameAndConvertToRatio(directories[i], filename);
 
             }
 
@@ -43,7 +45,7 @@ namespace photo_directory_organizer
 
         }
 
-        static void checkEachDirNameAndConvertToRatio(string directories, string filename, DirectoryInfo dir )
+        static void checkEachDirNameAndConvertToRatio(string directories, string filename)
         {
             //System.IO.FileInfo[] files = null;
             //System.IO.DirectoryInfo[] subDirs = null;
@@ -117,19 +119,19 @@ namespace photo_directory_organizer
 
             //    FileInfo folder = new FileInfo(Path.Combine(root.ToString(), newfolder.ToString()));
             string destination = string.Empty; 
-            if (!Directory.Exists(dir.ToString())) 
+            if (!Directory.Exists(dirInputFolderForRatios.ToString())) 
                 {
                     Directory.CreateDirectory(ratioFinal.ToString());
-                    destination = Path.Combine(dir.ToString(), Path.GetFileName(ratioFinal));
+                    destination = Path.Combine(dirInputFolderForRatios.ToString(), Path.GetFileName(ratioFinal));
 
                     // To move a file or folder to a new location:
                     System.IO.File.Move(ratioFinal, destination);
                }
                 //if dir exists
-                else if (Directory.Exists(dir.ToString()))
+                else if (Directory.Exists(dirInputFolderForRatios.ToString()))
                 {
                    //move into existing folder
-                   System.IO.File.Move(Path.Combine(dir.ToString(), Path.GetFileName(ratioFinal)), destination);
+                   System.IO.File.Move(Path.Combine(dirInputFolderForRatios.ToString(), Path.GetFileName(ratioFinal)), destination);
 
 
             }

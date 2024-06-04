@@ -10,10 +10,11 @@
     <Grid>
         <Grid x:Name="mainGrid_grid">
             <Label x:Name="test_label" Content="Convert files to photo meta size folders :" HorizontalAlignment="Left" Margin="57,42,0,0" VerticalAlignment="Top" Width="233"/>
-            <Button x:Name="rootfolder_button" Content="Choose Folder &amp; Run" HorizontalAlignment="Left" Margin="305,48,0,0" VerticalAlignment="Top" Width="134" Click="rootfolder_button_Click"/>
-            <Button Content="Choose Source Folder" HorizontalAlignment="Left" Margin="305,112,0,0" VerticalAlignment="Top" Width="134" Click="Button_Click"/>
-            <Label Content="Convert file size folders to ratio numbers :" HorizontalAlignment="Left" Margin="59,109,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="convertFoldersToRatioFolders" Content="Choose Destination &amp; Run" HorizontalAlignment="Left" Margin="464,112,0,0" VerticalAlignment="Top" Width="160" Click="convertFoldersToRatioFolders_Click"/>
+            <Button x:Name="rootfolder_button" Content="Choose Folder &amp; Run" HorizontalAlignment="Left" Margin="305,48,0,0" VerticalAlignment="Top" Width="134" Click="metasize_folders_button_Click"/>
+            <Button Content="Choose Source Folder" HorizontalAlignment="Left" Margin="305,112,0,0" VerticalAlignment="Top" Width="134" Click="SelectRootFolderButton_Click"/>
+            <Label Content="Convert file size folders to aspect ratios :" HorizontalAlignment="Left" Margin="59,109,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="convertFoldersToRatioFolders" Content="Choose Destination" HorizontalAlignment="Left" Margin="464,112,0,0" VerticalAlignment="Top" Width="126" Click="SelectAspectRatioFolderButton_Click"/>
+            <Button x:Name="runaspectratio" Content="Run" HorizontalAlignment="Left" Margin="620,112,0,0" VerticalAlignment="Top" Click="CreateAspectRatiosButton_Click" Width="45"/>
         </Grid>
 
     </Grid>
